@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace Config;
 
 use PDO;
 use PDOException;
@@ -13,7 +13,7 @@ class Connection {
                 $host = '127.0.0.1';
                 $db   = 'receitas_db';
                 $user = 'root';
-                $pass = '1234'; // Substitua pelo texto exato da senha que você usa
+                $pass = '1234'; 
                 self::$instance = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {

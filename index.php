@@ -1,13 +1,10 @@
 <?php
 
-spl_autoload_register(function ($class) {
-    $file = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
-    if (file_exists($file)) {
-        require_once $file;
-    }
-});
+require_once __DIR__ . '/vendor/autoload.php';
 
 use Controller\ReceitaController;
+
+header('Content-Type: application/json; charset=UTF-8');
 
 $controller = new ReceitaController();
 $method = $_SERVER['REQUEST_METHOD'];
