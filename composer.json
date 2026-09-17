@@ -1,0 +1,12 @@
+{
+    "name": "projeto/receitas-api",
+    "autoload": {
+        "psr-4": {
+            "Model\\": "Model/",
+            "Controller\\": "Controller/"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
