@@ -1,0 +1,224 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Receitas",
+        "description": "API RESTful para gerenciamento de receitas culinárias",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://receitas-api.test",
+            "description": "Servidor Local"
+        }
+    ],
+    "paths": {
+        "/receitas": {
+            "get": {
+                "tags": [
+                    "Receitas"
+                ],
+                "summary": "Lista todas as receitas",
+                "operationId": "353ede2223b8bf74c68fb520e67b68bc",
+                "responses": {
+                    "200": {
+                        "description": "Lista retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Receita"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Receitas"
+                ],
+                "summary": "Cadastra uma nova receita",
+                "operationId": "3b65c33b63d77e7e3ce4c854aabf3d19",
+                "requestBody": {
+                    "description": "Dados para cadastrar uma nova receita",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Receita"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Receita criada com sucesso"
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/receitas/{id}": {
+            "get": {
+                "tags": [
+                    "Receitas"
+                ],
+                "summary": "Obtém informações de uma receita",
+                "operationId": "3134af916eb86909f5b178fe1152d9c5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da receita a ser buscada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Receita encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Receita"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Receita não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Receitas"
+                ],
+                "summary": "Atualiza uma receita",
+                "operationId": "aa775277381d1c8d22a9932d2b802f00",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da receita a ser atualizada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Novos dados para atualização da receita",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Receita"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Receita atualizada com sucesso"
+                    },
+                    "404": {
+                        "description": "Receita não encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Receitas"
+                ],
+                "summary": "Exclui uma receita",
+                "operationId": "3f3ffa8880f8a0a8705515206a216c2c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da receita a ser excluída",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Receita deletada com sucesso"
+                    },
+                    "404": {
+                        "description": "Receita não encontrada"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Receita": {
+                "title": "Receita",
+                "description": "Modelo de dados da Receita",
+                "required": [
+                    "titulo",
+                    "ingredientes",
+                    "modo_preparo"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID único da receita",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "titulo": {
+                        "description": "Título da receita",
+                        "type": "string",
+                        "example": "Bolo de Cenoura"
+                    },
+                    "ingredientes": {
+                        "description": "Lista de ingredientes",
+                        "type": "string",
+                        "example": "Cenoura, açúcar, ovos, farinha"
+                    },
+                    "modo_preparo": {
+                        "description": "Modo de preparo",
+                        "type": "string",
+                        "example": "Bata tudo no liquidificador e asse por 40 min"
+                    },
+                    "tempo_preparo_minutos": {
+                        "description": "Tempo de preparo em minutos",
+                        "type": "integer",
+                        "example": 45,
+                        "nullable": true
+                    },
+                    "categoria": {
+                        "description": "Categoria da receita",
+                        "type": "string",
+                        "example": "Sobremesa",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Receitas",
+            "description": "Receitas"
+        }
+    ]
+}

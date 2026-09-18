@@ -41,9 +41,12 @@ class ReceitaController
         try {
             $receitas = $this->model->listar();
             echo json_encode($receitas);
-        } catch (\PDOException $e) {
+        } catch (\Throwable $e) {
             http_response_code(500);
-            echo json_encode(['mensagem' => 'Erro interno do servidor']);
+            echo json_encode([
+                'mensagem' => 'Erro interno do servidor',
+                'detalhe'  => $e->getMessage()
+            ]);
         }
     }
 
@@ -79,9 +82,12 @@ class ReceitaController
                 http_response_code(404);
                 echo json_encode(['mensagem' => 'Receita não encontrada']);
             }
-        } catch (\PDOException $e) {
+        } catch (\Throwable $e) {
             http_response_code(500);
-            echo json_encode(['mensagem' => 'Erro interno do servidor']);
+            echo json_encode([
+                'mensagem' => 'Erro interno do servidor',
+                'detalhe'  => $e->getMessage()
+            ]);
         }
     }
 
@@ -101,11 +107,12 @@ class ReceitaController
     )]
     public function criar()
     {
-        $dados = json_decode(file_get_contents('php://input'), true);
+        $rawInput = file_get_contents('php://input');
+        $dados = json_decode($rawInput, true);
 
-        if (empty($dados['titulo']) || empty($dados['ingredientes']) || empty($dados['modo_preparo'])) {
+        if (!$dados || empty($dados['titulo']) || empty($dados['ingredientes']) || empty($dados['modo_preparo'])) {
             http_response_code(400);
-            echo json_encode(['mensagem' => 'Dados incompletos']);
+            echo json_encode(['mensagem' => 'Dados incompletos ou JSON invalido']);
             return;
         }
 
@@ -113,9 +120,12 @@ class ReceitaController
             $this->model->criar($dados);
             http_response_code(201);
             echo json_encode(['mensagem' => 'Receita cadastrada com sucesso']);
-        } catch (\PDOException $e) {
+        } catch (\Throwable $e) {
             http_response_code(500);
-            echo json_encode(['mensagem' => 'Erro ao cadastrar']);
+            echo json_encode([
+                'mensagem' => 'Erro ao cadastrar',
+                'detalhe'  => $e->getMessage()
+            ]);
         }
     }
 
@@ -144,11 +154,12 @@ class ReceitaController
     )]
     public function atualizar($id)
     {
-        $dados = json_decode(file_get_contents('php://input'), true);
+        $rawInput = file_get_contents('php://input');
+        $dados = json_decode($rawInput, true);
 
-        if (empty($dados['titulo']) || empty($dados['ingredientes']) || empty($dados['modo_preparo'])) {
+        if (!$dados || empty($dados['titulo']) || empty($dados['ingredientes']) || empty($dados['modo_preparo'])) {
             http_response_code(400);
-            echo json_encode(['mensagem' => 'Dados incompletos']);
+            echo json_encode(['mensagem' => 'Dados incompletos ou JSON invalido']);
             return;
         }
 
@@ -160,9 +171,12 @@ class ReceitaController
                 http_response_code(404);
                 echo json_encode(['mensagem' => 'Receita não encontrada']);
             }
-        } catch (\PDOException $e) {
+        } catch (\Throwable $e) {
             http_response_code(500);
-            echo json_encode(['mensagem' => 'Erro ao atualizar']);
+            echo json_encode([
+                'mensagem' => 'Erro ao atualizar',
+                'detalhe'  => $e->getMessage()
+            ]);
         }
     }
 
@@ -194,9 +208,12 @@ class ReceitaController
                 http_response_code(404);
                 echo json_encode(['mensagem' => 'Receita não encontrada']);
             }
-        } catch (\PDOException $e) {
+        } catch (\Throwable $e) {
             http_response_code(500);
-            echo json_encode(['mensagem' => 'Erro ao deletar']);
+            echo json_encode([
+                'mensagem' => 'Erro ao deletar',
+                'detalhe'  => $e->getMessage()
+            ]);
         }
     }
 }

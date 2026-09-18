@@ -10,7 +10,10 @@ $controller = new ReceitaController();
 $method = $_SERVER['REQUEST_METHOD'];
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$segments = explode('/', trim($path, '/'));
+// Remove 'index.php' da URL caso ela esteja presente na rota
+$path = str_replace('/index.php', '', $path);
+
+$segments = array_values(array_filter(explode('/', trim($path, '/'))));
 
 if (isset($segments[0]) && $segments[0] === 'receitas') {
     $id = $segments[1] ?? null;

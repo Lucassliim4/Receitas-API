@@ -1,13 +1,17 @@
 {
-    "name": "projeto/receitas-api",
-    "autoload": {
-        "psr-4": {
-            "Model\\": "Model/",
-            "Controller\\": "Controller/"
-        }
-    },
+    "name": "lucas/receitas-api",
+    "description": "API RESTful para gerenciamento de receitas culinárias",
+    "type": "project",
     "require": {
+        "php": ">=8.0",
         "vlucas/phpdotenv": "^5.5",
         "zircote/swagger-php": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Config\\": "Config/",
+            "Controller\\": "Controller/",
+            "Model\\": "Model/"
+        }
     }
 }
