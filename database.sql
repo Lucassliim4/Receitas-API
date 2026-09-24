@@ -2,6 +2,7 @@ Nome do banco de dados: receitas_api
 
 Npme da tabela: receitas
 
+-- Informções
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `titulo` VARCHAR(255) NOT NULL,
   `ingredientes` TEXT NOT NULL,
