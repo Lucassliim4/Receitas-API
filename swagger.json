@@ -70,7 +70,7 @@
                 "tags": [
                     "Receitas"
                 ],
-                "summary": "Obtém informações de uma receita",
+                "summary": "Aqui obtém informações de uma receita",
                 "operationId": "3134af916eb86909f5b178fe1152d9c5",
                 "parameters": [
                     {
